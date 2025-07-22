@@ -9,8 +9,6 @@
             Dim txtSearch As TextBox = CType(Master.Page.FindControl("txtSearch"), TextBox)
             lblSearch.Text = "You searched for: " & txtSearch.Text
         End If
-
-
     End Sub
 
 End Class
