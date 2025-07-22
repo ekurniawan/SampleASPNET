@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row">
         <div class="col-md-12">
-            <h2>Add Dealer</h2>
+            <h2>Dealer</h2>
             <asp:SqlDataSource ID="sdsDealer" runat="server"
                 ConnectionString="<%$ ConnectionStrings:AutomotiveDBConnectionString %>"
                 DeleteCommand="DeleteDealer"
@@ -65,7 +65,8 @@
             </asp:FormView><br />
 
             <asp:GridView ID="gvDealer" runat="server" 
-                AutoGenerateColumns="False" DataKeyNames="DealerID" DataSourceID="sdsDealer" CssClass="table table-striped">
+                AutoGenerateColumns="False" DataKeyNames="DealerID" 
+                DataSourceID="sdsDealer" CssClass="table table-striped">
                 <Columns>
                     <asp:BoundField DataField="DealerID" HeaderText="DealerID" InsertVisible="False" ReadOnly="True" SortExpression="DealerID" />
                     <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
