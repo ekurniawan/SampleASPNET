@@ -41,6 +41,15 @@ Partial Public Class Products
     Protected WithEvents txtLastName As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''rblGender control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rblGender As Global.System.Web.UI.WebControls.RadioButtonList
+
+    '''<summary>
     '''btnSubmit control.
     '''</summary>
     '''<remarks>
@@ -48,4 +57,22 @@ Partial Public Class Products
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnSubmit As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''lblCount control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblCount As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''btnIncrement control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnIncrement As Global.System.Web.UI.WebControls.Button
 End Class

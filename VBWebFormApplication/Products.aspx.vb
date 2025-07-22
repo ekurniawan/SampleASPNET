@@ -5,11 +5,20 @@
 
     End Sub
 
-    Protected Sub btnSubmit_Click(sender As Object, e As EventArgs)
-        lblBio.Text = "Thank you for your submission, " & txtFirstName.Text & " " & txtLastName.Text
+    Protected Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
+        Dim gender As String
+        If rblGender.Text = "Male" Then
+            gender = "Mr."
+        Else
+            gender = "Ms."
+        End If
+
+        lblBio.Text = "Thank you for your submission, " & gender & txtFirstName.Text & " " & txtLastName.Text
     End Sub
 
-    'Protected Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
-    '    lblBio.Text = "Thank you for your submission, " & txtFirstName.Text
-    'End Sub
+    Protected Sub btnIncrement_Click(sender As Object, e As EventArgs) Handles btnIncrement.Click
+        lblCount.Text = CInt(lblCount.Text) + 1
+    End Sub
+
+
 End Class
