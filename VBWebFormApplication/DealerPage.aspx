@@ -6,10 +6,14 @@
             <h2>Add Dealer</h2>
             <asp:SqlDataSource ID="sdsDealer" runat="server"
                 ConnectionString="<%$ ConnectionStrings:AutomotiveDBConnectionString %>"
-                DeleteCommand="DELETE FROM [Dealer] WHERE [DealerID] = @DealerID"
-                InsertCommand="INSERT INTO [Dealer] ([Name], [Address], [PhoneNumber], [Email], [Status]) VALUES (@Name, @Address, @PhoneNumber, @Email, @Status)"
-                SelectCommand="SELECT [DealerID], [Name], [Address], [PhoneNumber], [Email], [Status] FROM [Dealer]"
-                UpdateCommand="UPDATE [Dealer] SET [Name] = @Name, [Address] = @Address, [PhoneNumber] = @PhoneNumber, [Email] = @Email, [Status] = @Status WHERE [DealerID] = @DealerID">
+                DeleteCommand="DeleteDealer"
+                InsertCommand="InsertDealer"
+                SelectCommand="GetDealers"
+                UpdateCommand="UpdateDealer" 
+                DeleteCommandType="StoredProcedure" 
+                InsertCommandType="StoredProcedure" 
+                SelectCommandType="StoredProcedure" 
+                UpdateCommandType="StoredProcedure">
                 <DeleteParameters>
                     <asp:Parameter Name="DealerID" Type="Int32" />
                 </DeleteParameters>
@@ -21,12 +25,12 @@
                     <asp:Parameter Name="Status" Type="Boolean" />
                 </InsertParameters>
                 <UpdateParameters>
+                    <asp:Parameter Name="DealerID" Type="Int32" />
                     <asp:Parameter Name="Name" Type="String" />
                     <asp:Parameter Name="Address" Type="String" />
                     <asp:Parameter Name="PhoneNumber" Type="String" />
                     <asp:Parameter Name="Email" Type="String" />
                     <asp:Parameter Name="Status" Type="Boolean" />
-                    <asp:Parameter Name="DealerID" Type="Int32" />
                 </UpdateParameters>
             </asp:SqlDataSource>
 
@@ -69,6 +73,7 @@
                     <asp:BoundField DataField="PhoneNumber" HeaderText="Phone Number" SortExpression="PhoneNumber" />
                     <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" />
                     <asp:CheckBoxField DataField="Status" HeaderText="Status" SortExpression="Status" />
+                    <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
                 </Columns>
             </asp:GridView>
         </div>
