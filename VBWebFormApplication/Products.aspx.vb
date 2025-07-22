@@ -13,7 +13,11 @@
             gender = "Ms."
         End If
 
-        lblBio.Text = "Thank you for your submission, " & gender & txtFirstName.Text & " " & txtLastName.Text
+        Dim country As String = ddlCountry.SelectedValue
+
+        lblBio.Text = "Thank you for your submission, " & gender & txtFirstName.Text & " " & txtLastName.Text &
+            "<br/> from " & country & ".<br />"
+
     End Sub
 
     Protected Sub btnIncrement_Click(sender As Object, e As EventArgs) Handles btnIncrement.Click
