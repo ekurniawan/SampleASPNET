@@ -7,8 +7,7 @@
 
             <asp:SqlDataSource ID="sdsCar" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:AutomotiveDBConnectionString %>"
-                SelectCommand="SELECT Car.CarID, Car.Model, Car.Type, Car.BasePrice, Car.Color, Car.Stock, DealerCar.DealerID, DealerCar.Price, DealerCar.Stock AS StockDealer, DealerCar.DiscountPercent, DealerCar.FeePercent FROM Car INNER JOIN DealerCar ON Car.CarID = DealerCar.CarID
-where DealerCar.DealerID=@DealerID">
+                SelectCommand="GetCarsByDealer" SelectCommandType="StoredProcedure">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="ddDealer" Name="DealerID" PropertyName="SelectedValue" />
                 </SelectParameters>
@@ -16,10 +15,10 @@ where DealerCar.DealerID=@DealerID">
 
             <asp:SqlDataSource ID="sdsDealer" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:AutomotiveDBConnectionString %>" 
-                SelectCommand="SELECT [DealerID], [Name], [Address], [PhoneNumber], [Email], [Status] FROM [Dealer] ORDER BY [Name]"></asp:SqlDataSource>
+                SelectCommand="GetDealerDropDown" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
 
-            <asp:DropDownList ID="ddDealer" runat="server" AutoPostBack="true"
-                DataSourceID="sdsDealer" DataTextField="Name" DataValueField="DealerID"></asp:DropDownList>
+            <asp:DropDownList ID="ddDealer" runat="server" AutoPostBack="True" CssClass="form-select"
+                DataSourceID="sdsDealer" DataTextField="Name" DataValueField="DealerID"></asp:DropDownList><br />
 
             <asp:GridView ID="gvCar" runat="server" CssClass="table table-striped"
                 AutoGenerateColumns="False" DataSourceID="sdsCar" 
