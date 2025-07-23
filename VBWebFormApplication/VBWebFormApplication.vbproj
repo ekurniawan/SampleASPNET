@@ -145,6 +145,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="CustomerPage.aspx" />
     <Content Include="DealerPage.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
@@ -238,6 +239,13 @@
     </Compile>
     <Compile Include="Contact.aspx.vb">
       <DependentUpon>Contact.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPage.aspx.designer.vb">
+      <DependentUpon>CustomerPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPage.aspx.vb">
+      <DependentUpon>CustomerPage.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="DealerPage.aspx.designer.vb">

@@ -4,13 +4,17 @@
     <div class="row">
         <div class="col-md-12">
             <div>
-                <asp:SqlDataSource ID="sdsCar" runat="server" ConnectionString="<%$ ConnectionStrings:AutomotiveDBConnectionString %>" SelectCommand="SELECT [CarID], [Model] FROM [Car] ORDER BY [Model]"></asp:SqlDataSource>
+                <asp:SqlDataSource ID="sdsCar" runat="server" ConnectionString="<%$ ConnectionStrings:AutomotiveDBConnectionString %>" 
+                    SelectCommand="SELECT [CarID], [Model] FROM [Car] ORDER BY [Model]"></asp:SqlDataSource>
                 <asp:SqlDataSource ID="sdsDealer" runat="server" ConnectionString="<%$ ConnectionStrings:AutomotiveDBConnectionString %>" SelectCommand="GetDealerDropDown" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
                 <asp:SqlDataSource ID="sdsCarDealer" runat="server" ConnectionString="<%$ ConnectionStrings:AutomotiveDBConnectionString %>"
                     DeleteCommand="DELETE FROM [DealerCar] WHERE [DealerCarID] = @DealerCarID"
-                    InsertCommand="INSERT INTO [DealerCar] ([CarID], [DealerID], [Price], [Stock], [DiscountPercent], [FeePercent]) VALUES (@CarID, @DealerID, @Price, @Stock, @DiscountPercent, @FeePercent)"
-                    SelectCommand="SELECT DealerCar.DealerCarID, DealerCar.CarID, DealerCar.DealerID, DealerCar.Price, DealerCar.Stock, DealerCar.DiscountPercent, DealerCar.FeePercent, Car.Model, Dealer.Name FROM DealerCar INNER JOIN Car ON DealerCar.CarID = Car.CarID INNER JOIN Dealer ON DealerCar.DealerID = Dealer.DealerID"
-                    UpdateCommand="UPDATE [DealerCar] SET [CarID] = @CarID, [DealerID] = @DealerID, [Price] = @Price, [Stock] = @Stock, [DiscountPercent] = @DiscountPercent, [FeePercent] = @FeePercent WHERE [DealerCarID] = @DealerCarID">
+                    InsertCommand="INSERT INTO [DealerCar] ([CarID], [DealerID], [Price], [Stock], [DiscountPercent], [FeePercent]) 
+                    VALUES (@CarID, @DealerID, @Price, @Stock, @DiscountPercent, @FeePercent)"
+                    SelectCommand="GetDealerCarDetails"
+                    SelectCommandType="StoredProcedure"
+                    UpdateCommand="UPDATE [DealerCar] SET [CarID] = @CarID, [DealerID] = @DealerID, [Price] = @Price, [Stock] = @Stock, 
+                    [DiscountPercent] = @DiscountPercent, [FeePercent] = @FeePercent WHERE [DealerCarID] = @DealerCarID">
                     <DeleteParameters>
                         <asp:Parameter Name="DealerCarID" Type="Int32" />
                     </DeleteParameters>
@@ -78,7 +82,7 @@
             <hr />
             <div>
                 <asp:GridView ID="gvDealerCar" runat="server" AutoGenerateColumns="False"
-                    DataKeyNames="DealerCarID" DataSourceID="sdsCarDealer" CssClass="table table-striped">
+                    DataKeyNames="DealerCarID" DataSourceID="sdsCarDealer" CssClass="table table-striped" AllowPaging="True" PageSize="5">
                     <Columns>
                         <asp:TemplateField HeaderText="Model" SortExpression="Model">
                             <EditItemTemplate>
@@ -101,22 +105,58 @@
                                <%# Eval("Name") %>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" DataFormatString="{0:N0}">
+                        <asp:TemplateField HeaderText="Price" SortExpression="Price">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtPriceField" TextMode="Number" runat="server" 
+                                    Text='<%# Bind("Price") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <%# Eval("Price", "Rp.{0:N0}") %>
+                            </ItemTemplate>
                             <ItemStyle HorizontalAlign="Right" />
-                        </asp:BoundField>
-                        <asp:BoundField DataField="Stock" HeaderText="Stock" SortExpression="Stock">
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Stock" SortExpression="Stock">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtStockField" TextMode="Number" runat="server" 
+                                    Text='<%# Bind("Stock") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <%# Eval("Stock") %>
+                            </ItemTemplate>
                             <ItemStyle HorizontalAlign="Right" />
-                        </asp:BoundField>
-                        <asp:BoundField DataField="DiscountPercent" HeaderText="Discount Percent" SortExpression="DiscountPercent">
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Discount Percent" SortExpression="DiscountPercent">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtDiscountField" runat="server" Text='<%# Bind("DiscountPercent") %>' />
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <%# Eval("DiscountPercent", "{0:N0}%") %>
+                            </ItemTemplate>
                             <ItemStyle HorizontalAlign="Right" />
-                        </asp:BoundField>
-                        <asp:BoundField DataField="FeePercent" HeaderText="Fee Percent" SortExpression="FeePercent">
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Fee Percent" SortExpression="FeePercent">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtFeePercentField" runat="server" Text='<%# Bind("FeePercent") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <%# Eval("FeePercent", "{0:N0}%") %>
+                            </ItemTemplate>
                             <ItemStyle HorizontalAlign="Right" />
-                        </asp:BoundField>
-                        <asp:CommandField ShowEditButton="True" />
+                        </asp:TemplateField>
+                        <asp:TemplateField ShowHeader="False">
+                            <EditItemTemplate>
+                                <asp:LinkButton ID="lbUpdate" runat="server" CausesValidation="True" CommandName="Update" CssClass="btn btn-sm btn-warning" Text="Update"></asp:LinkButton>
+                                &nbsp;<asp:LinkButton ID="lbCancel" runat="server" CausesValidation="False" CssClass="btn btn-sm btn-danger" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lbEdit" runat="server" CausesValidation="False" CssClass="btn btn-sm btn-primary" CommandName="Edit" Text="Edit"></asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </div>
+            <hr />
+            <asp:Button ID="btnGetCar" runat="server" Text="Get Car" />
         </div>
     </div>
 </asp:Content>

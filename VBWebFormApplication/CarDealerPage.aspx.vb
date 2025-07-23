@@ -5,6 +5,15 @@
 
     End Sub
 
+    Private Sub CleanForm()
+        txtPrice.Text = "0"
+        txtStock.Text = "0"
+        txtDiscount.Text = "0"
+        txtFeePercent.Text = "0"
+        ddCar.SelectedIndex = 0
+        ddDealer.SelectedIndex = 0
+    End Sub
+
     Protected Sub btnRegister_Click(sender As Object, e As EventArgs)
         Try
             sdsCarDealer.InsertParameters("CarID").DefaultValue = ddCar.SelectedValue
@@ -15,6 +24,7 @@
             sdsCarDealer.InsertParameters("FeePercent").DefaultValue = txtFeePercent.Text
             sdsCarDealer.Insert()
             ltMessage.Text = "<span class='text-success'>Car Dealer registered successfully.</span>"
+            CleanForm()
         Catch ex As Exception
             ltMessage.Text = "<span class='text-danger'>Error: " & ex.Message & "</span>"
         End Try
