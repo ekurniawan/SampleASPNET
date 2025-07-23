@@ -29,4 +29,22 @@
             ltMessage.Text = "<span class='text-danger'>Error: " & ex.Message & "</span>"
         End Try
     End Sub
+
+    Protected Sub btnGetCar_Click(sender As Object, e As EventArgs)
+        Dim stringResult As New StringBuilder
+        Dim results As DataView = sdsCar.Select(DataSourceSelectArguments.Empty)
+
+        gvCar.DataSource = results
+        gvCar.DataBind()
+
+        ddCarManual.DataSource = results
+        ddCarManual.DataTextField = "Model"
+        ddCarManual.DataValueField = "CarID"
+        ddCarManual.DataBind()
+
+        For Each item As DataRowView In results
+            stringResult.AppendLine($"CarID: {item("CarID")}, CarName: {item("Model")}")
+        Next
+        ltMessage.Text = "<span class='text-info'>Cars:</span><br/>" & stringResult.ToString()
+    End Sub
 End Class

@@ -145,18 +145,22 @@
                         </asp:TemplateField>
                         <asp:TemplateField ShowHeader="False">
                             <EditItemTemplate>
-                                <asp:LinkButton ID="lbUpdate" runat="server" CausesValidation="True" CommandName="Update" CssClass="btn btn-sm btn-warning" Text="Update"></asp:LinkButton>
-                                &nbsp;<asp:LinkButton ID="lbCancel" runat="server" CausesValidation="False" CssClass="btn btn-sm btn-danger" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
+                                <asp:LinkButton ID="lbUpdate" runat="server" CausesValidation="True" CommandName="Update" CssClass="btn btn-sm btn-outline-warning" Text="Update"></asp:LinkButton>
+                                &nbsp;<asp:LinkButton ID="lbCancel" runat="server" CausesValidation="False" CssClass="btn btn-sm btn-outline-danger" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:LinkButton ID="lbEdit" runat="server" CausesValidation="False" CssClass="btn btn-sm btn-primary" CommandName="Edit" Text="Edit"></asp:LinkButton>
+                                <asp:LinkButton ID="lbEdit" runat="server" CausesValidation="False" CssClass="btn btn-sm btn-outline-primary" CommandName="Edit" Text="Edit"></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </div>
             <hr />
-            <asp:Button ID="btnGetCar" runat="server" Text="Get Car" />
+            <asp:Button ID="btnGetCar" runat="server" CssClass="btn btn-warning" 
+                Text="Get Car" OnClick="btnGetCar_Click" /><br />
+            <asp:GridView ID="gvCar" runat="server"></asp:GridView><br />
+            <asp:DropDownList ID="ddCarManual" runat="server">
+            </asp:DropDownList>
         </div>
     </div>
 </asp:Content>
