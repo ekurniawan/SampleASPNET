@@ -3,17 +3,19 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row">
         <div class="col-md-12">
-            <h2>Dealer</h2>
+            <h2>Dealer Mitsu</h2>
             <asp:SqlDataSource ID="sdsDealer" runat="server"
                 ConnectionString="<%$ ConnectionStrings:AutomotiveDBConnectionString %>"
                 DeleteCommand="DeleteDealer"
                 InsertCommand="InsertDealer"
                 SelectCommand="GetDealers"
-                UpdateCommand="UpdateDealer" 
-                DeleteCommandType="StoredProcedure" 
-                InsertCommandType="StoredProcedure" 
-                SelectCommandType="StoredProcedure" 
-                UpdateCommandType="StoredProcedure">
+                UpdateCommand="UpdateDealer"
+                DeleteCommandType="StoredProcedure"
+                InsertCommandType="StoredProcedure"
+                SelectCommandType="StoredProcedure"
+                UpdateCommandType="StoredProcedure"
+                OnSelected="sdsDealer_Selected"
+                OnSelecting="sdsDealer_Selecting">
                 <DeleteParameters>
                     <asp:Parameter Name="DealerID" Type="Int32" />
                 </DeleteParameters>
@@ -34,13 +36,17 @@
                 </UpdateParameters>
             </asp:SqlDataSource>
 
+
+            <asp:Literal ID="ltMessage" runat="server" />
+
+
             <asp:FormView ID="fvDealer" runat="server" DataKeyNames="DealerID" CssClass="form-view"
                 DataSourceID="sdsDealer" DefaultMode="Insert">
                 <InsertItemTemplate>
-
                     <div class="mb-3 mt-3">
                         <label for="Name" class="form-label">Name:</label>
                         <asp:TextBox ID="NameTextBox" runat="server" Text='<%# Bind("Name") %>' CssClass="form-control" />
+                        <asp:RequiredFieldValidator ID="rfvName" runat="server" ErrorMessage="Name required" ControlToValidate="NameTextBox" ForeColor="Red" />
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="Address" class="form-label">Address:</label>
@@ -52,20 +58,21 @@
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="Email" class="form-label">Email:</label>
-                         <asp:TextBox ID="EmailTextBox" runat="server" Text='<%# Bind("Email") %>' CssClass="form-control" />
+                        <asp:TextBox ID="EmailTextBox" runat="server" Text='<%# Bind("Email") %>' CssClass="form-control" />
                     </div>
                     <div class="form-check mb-3">
                         <label class="form-check-label">
-                             <asp:CheckBox ID="StatusCheckBox" runat="server" Checked='<%# Bind("Status") %>' CssClass="form-check-input" />Status
+                            <asp:CheckBox ID="StatusCheckBox" runat="server" Checked='<%# Bind("Status") %>' CssClass="form-check-input" />Status
                         </label>
                     </div>
                     <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Insert" CssClass="btn btn-primary btn-sm" />
                     &nbsp;<asp:LinkButton ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" CssClass="btn btn-primary btn-sm" />
                 </InsertItemTemplate>
-            </asp:FormView><br />
+            </asp:FormView>
+            <br />
 
-            <asp:GridView ID="gvDealer" runat="server" 
-                AutoGenerateColumns="False" DataKeyNames="DealerID" 
+            <asp:GridView ID="gvDealer" runat="server"
+                AutoGenerateColumns="False" DataKeyNames="DealerID"
                 DataSourceID="sdsDealer" CssClass="table table-striped">
                 <Columns>
                     <asp:BoundField DataField="DealerID" HeaderText="DealerID" InsertVisible="False" ReadOnly="True" SortExpression="DealerID" />
