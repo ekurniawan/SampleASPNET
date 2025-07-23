@@ -40,6 +40,9 @@
             <asp:Literal ID="ltMessage" runat="server" />
 
 
+            <asp:ValidationSummary ID="vsDealer" runat="server" CssClass="alert alert-danger" 
+                HeaderText="Please correct the following errors:" />
+
             <asp:FormView ID="fvDealer" runat="server" DataKeyNames="DealerID" CssClass="form-view"
                 DataSourceID="sdsDealer" DefaultMode="Insert">
                 <InsertItemTemplate>
@@ -51,14 +54,19 @@
                     <div class="mb-3 mt-3">
                         <label for="Address" class="form-label">Address:</label>
                         <asp:TextBox ID="AddressTextBox" runat="server" Text='<%# Bind("Address") %>' CssClass="form-control" />
+                        <asp:requiredFieldValidator ID="rfvAddress" runat="server" ErrorMessage="Address required" ControlToValidate="AddressTextBox" ForeColor="Red" />
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="PhoneNumber" class="form-label">Phone Number:</label>
                         <asp:TextBox ID="PhoneNumberTextBox" runat="server" Text='<%# Bind("PhoneNumber") %>' CssClass="form-control" />
+                        <asp:RequiredFieldValidator  ID="rfvPhoneNumber" runat="server" ErrorMessage="Phone Number required" ControlToValidate="PhoneNumberTextBox" ForeColor="Red" />
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="Email" class="form-label">Email:</label>
                         <asp:TextBox ID="EmailTextBox" runat="server" Text='<%# Bind("Email") %>' CssClass="form-control" />
+                        <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ErrorMessage="Email required" ControlToValidate="EmailTextBox" ForeColor="Red" />
+                        <asp:RegularExpressionValidator ID="revEmail" runat="server" ErrorMessage="Invalid email format" ControlToValidate="EmailTextBox" ForeColor="Red"
+                            ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" />
                     </div>
                     <div class="form-check mb-3">
                         <label class="form-check-label">

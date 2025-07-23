@@ -32,6 +32,15 @@ Partial Public Class DealerPage
     Protected WithEvents ltMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
+    '''vsDealer control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents vsDealer As Global.System.Web.UI.WebControls.ValidationSummary
+
+    '''<summary>
     '''fvDealer control.
     '''</summary>
     '''<remarks>
