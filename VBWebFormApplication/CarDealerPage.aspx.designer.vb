@@ -165,4 +165,13 @@ Partial Public Class CarDealerPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnRegister As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''gvDealerCar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents gvDealerCar As Global.System.Web.UI.WebControls.GridView
 End Class
