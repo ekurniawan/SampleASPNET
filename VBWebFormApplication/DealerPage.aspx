@@ -46,7 +46,7 @@
 
 
             <asp:ValidationSummary ValidationGroup="insert_dealer" ID="vsDealer" runat="server" CssClass="alert alert-danger" 
-                HeaderText="Please correct the following errors:" />
+                HeaderText="Please correct the following errors:" ShowMessageBox="true" />
 
             <asp:FormView ID="fvDealer" runat="server" DataKeyNames="DealerID" CssClass="form-view"
                 DataSourceID="sdsDealer" DefaultMode="Insert">
@@ -79,7 +79,7 @@
                         </label>
                     </div>
                     <asp:LinkButton ID="InsertButton" ValidationGroup="insert_dealer" runat="server" CausesValidation="True" CommandName="Insert" Text="Insert" CssClass="btn btn-primary btn-sm" />
-                    &nbsp;<asp:LinkButton ID="InsertCancelButton" ValidationGroup="insert_dealer" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" CssClass="btn btn-primary btn-sm" />
+                    &nbsp;<asp:LinkButton ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" CssClass="btn btn-primary btn-sm" />
                 </InsertItemTemplate>
             </asp:FormView>
             <br />

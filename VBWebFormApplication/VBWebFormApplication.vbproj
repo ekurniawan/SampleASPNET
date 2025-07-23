@@ -125,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="CarDealerPage.aspx" />
     <Content Include="CarPage.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -216,6 +217,13 @@
     </Compile>
     <Compile Include="About.aspx.vb">
       <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="CarDealerPage.aspx.designer.vb">
+      <DependentUpon>CarDealerPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CarDealerPage.aspx.vb">
+      <DependentUpon>CarDealerPage.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="CarPage.aspx.designer.vb">
