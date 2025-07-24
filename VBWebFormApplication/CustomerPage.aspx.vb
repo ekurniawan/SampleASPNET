@@ -11,7 +11,17 @@ Public Class CustomerPage
 
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        txtCustomerID.Enabled = False
+
+        'if query string not empty
+        If Not String.IsNullOrEmpty(Request.QueryString("CustomerID")) Then
+            Dim customerID = Request.QueryString("CustomerID")
+            Dim editCust = GetCustomerById(customerID)
+            If editCust IsNot Nothing Then
+                FillCustomerData(editCust)
+            Else
+                ltMessage.Text = "<span class='alert alert-warning'>Customer not found.</span>"
+            End If
+        End If
 
         'check fist time load   
         If Not IsPostBack Then
@@ -126,12 +136,41 @@ Public Class CustomerPage
         End Try
     End Function
 
+    Private Function GetCustomerById(customerID As String) As Customer
+        Dim customer As New Customer()
+        Using conn As New SqlConnection(strConn)
+            Dim cmd As New SqlCommand("SELECT * FROM Customer WHERE CustomerID = @CustomerID", conn)
+            cmd.Parameters.AddWithValue("@CustomerID", customerID)
+            conn.Open()
+            Dim reader As SqlDataReader = cmd.ExecuteReader()
+            If reader.Read() Then
+                customer.CustomerID = Convert.ToInt32(reader("CustomerID"))
+                customer.Name = reader("Name").ToString()
+                customer.CardID = reader("CardID").ToString()
+                customer.Address = reader("Address").ToString()
+                customer.PhoneNumber = reader("PhoneNumber").ToString()
+                customer.Email = reader("Email").ToString()
+            End If
+            reader.Close()
+        End Using
+        Return customer
+    End Function
+
     Private Sub ClearForm()
         txtName.Text = String.Empty
         txtCardID.Text = String.Empty
         txtAddress.Text = String.Empty
         txtPhoneNumber.Text = String.Empty
         txtEmail.Text = String.Empty
+    End Sub
+
+    Private Sub FillCustomerData(editCustomer As Customer)
+        txtCustomerID.Text = editCustomer.CustomerID.ToString()
+        txtName.Text = editCustomer.Name
+        txtCardID.Text = editCustomer.CardID
+        txtAddress.Text = editCustomer.Address
+        txtPhoneNumber.Text = editCustomer.PhoneNumber
+        txtEmail.Text = editCustomer.Email
     End Sub
 
 #End Region
