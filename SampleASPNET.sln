@@ -7,6 +7,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VBWebFormApplication", "VBW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleASPNET.BO", "SampleASPNET.BO\SampleASPNET.BO.csproj", "{B54E0DE5-FBD6-4558-96FF-83A4D504BBE4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleASPNET.DAL", "SampleASPNET.DAL\SampleASPNET.DAL.csproj", "{85030A01-CBD0-4B9F-A409-1422D0879B9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B54E0DE5-FBD6-4558-96FF-83A4D504BBE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B54E0DE5-FBD6-4558-96FF-83A4D504BBE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B54E0DE5-FBD6-4558-96FF-83A4D504BBE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85030A01-CBD0-4B9F-A409-1422D0879B9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85030A01-CBD0-4B9F-A409-1422D0879B9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85030A01-CBD0-4B9F-A409-1422D0879B9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85030A01-CBD0-4B9F-A409-1422D0879B9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
