@@ -11,6 +11,8 @@ Public Class CustomerPage
 
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        txtCustomerID.Enabled = False
+
         'check fist time load   
         If Not IsPostBack Then
 
@@ -124,6 +126,14 @@ Public Class CustomerPage
         End Try
     End Function
 
+    Private Sub ClearForm()
+        txtName.Text = String.Empty
+        txtCardID.Text = String.Empty
+        txtAddress.Text = String.Empty
+        txtPhoneNumber.Text = String.Empty
+        txtEmail.Text = String.Empty
+    End Sub
+
 #End Region
 
 
@@ -150,6 +160,7 @@ Public Class CustomerPage
             Dim isInserted = InsertCustomer(newCustomer)
             If isInserted Then
                 LoadDataCustomers()
+                ClearForm()
                 ltMessage.Text = "<span class='alert alert-success'>Customer added successfully.</span>"
             Else
                 ltMessage.Text = "<span class='alert alert-warning'>Failed to add customer.</span>"
