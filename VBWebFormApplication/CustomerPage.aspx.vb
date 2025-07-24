@@ -11,7 +11,6 @@ Public Class CustomerPage
 
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
         'if query string not empty
         If Not String.IsNullOrEmpty(Request.QueryString("CustomerID")) Then
             Dim customerID = Request.QueryString("CustomerID")
@@ -25,9 +24,7 @@ Public Class CustomerPage
 
         'check fist time load   
         If Not IsPostBack Then
-
             conn = New SqlConnection(strConn)
-
             LoadDataCustomers()
         End If
     End Sub
@@ -157,6 +154,7 @@ Public Class CustomerPage
     End Function
 
     Private Sub ClearForm()
+        txtCustomerID.Text = String.Empty
         txtName.Text = String.Empty
         txtCardID.Text = String.Empty
         txtAddress.Text = String.Empty
@@ -207,5 +205,11 @@ Public Class CustomerPage
         Catch ex As Exception
             ltMessage.Text = "<span class='alert alert-warning'>Error: " & ex.Message & "</span>"
         End Try
+    End Sub
+
+    Protected Sub btnNew_Click(sender As Object, e As EventArgs)
+        btnNew.Enabled = False
+        ClearForm()
+        txtName.Focus()
     End Sub
 End Class

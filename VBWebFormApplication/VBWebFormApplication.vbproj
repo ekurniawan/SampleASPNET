@@ -145,7 +145,6 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="CustomerEdit.aspx" />
     <Content Include="CustomerPage.aspx" />
     <Content Include="DealerPage.aspx" />
     <Content Include="Default.aspx" />
@@ -240,13 +239,6 @@
     </Compile>
     <Compile Include="Contact.aspx.vb">
       <DependentUpon>Contact.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="CustomerEdit.aspx.designer.vb">
-      <DependentUpon>CustomerEdit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CustomerEdit.aspx.vb">
-      <DependentUpon>CustomerEdit.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="CustomerPage.aspx.designer.vb">
