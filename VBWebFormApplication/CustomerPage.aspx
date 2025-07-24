@@ -5,9 +5,11 @@
         <div class="col-md-12">
             <h2>Customer</h2>
             <asp:Literal ID="ltMessage" runat="server" />
+            <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" /><br />    
             <asp:Button ID="btnCustomer" Text="Get Data Customer" runat="server" CssClass="btn btn-primary"
                 OnClick="btnCustomer_Click" /><br />
-            <asp:GridView ID="gvCustomer" AutoGenerateColumns="false" runat="server" CssClass="table table-striped">
+            <asp:GridView ID="gvCustomer" AutoGenerateColumns="false" runat="server" 
+                CssClass="table table-striped" AllowPaging="true" PageSize="3">
                 <Columns>
                     <asp:BoundField DataField="CustomerID" HeaderText="Customer ID" />
                     <asp:BoundField DataField="Name" HeaderText="Name" />
