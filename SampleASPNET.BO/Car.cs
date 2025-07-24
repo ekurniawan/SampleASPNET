@@ -14,7 +14,5 @@ namespace SampleASPNET.BO
         public int? Stock { get; set; }
 
         public ICollection<DealerCar> DealerCars { get; set; }
-
-
     }
 }

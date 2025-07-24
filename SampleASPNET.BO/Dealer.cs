@@ -14,6 +14,5 @@ namespace SampleASPNET.BO
         public bool Status { get; set; }
 
         public ICollection<DealerCar> DealerCars { get; set; }
-
     }
 }
