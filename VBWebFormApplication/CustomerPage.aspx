@@ -4,13 +4,11 @@
     <div class="row">
         <h2>Customer</h2>
         <br />
+        <asp:Literal ID="ltMessage" ViewStateMode="Disabled" runat="server" />
         <div class="col-md-4">
-            <asp:Literal ID="ltMessage" ViewStateMode="Disabled" runat="server" />
-            <br />
-
             <div class="mb-3 mt-3">
                 <label for="CustomerID" class="form-label">Customer ID :</label>
-                <asp:TextBox ID="txtCustomerID" ReadOnly="true" runat="server" CssClass="form-control" />
+                <asp:TextBox ID="txtCustomerID" runat="server" CssClass="form-control" />
             </div>
             <div class="mb-3 mt-3">
                 <label for="Name" class="form-label">Name :</label>

@@ -12,20 +12,25 @@ Public Class CustomerPage
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         'if query string not empty
-        If Not String.IsNullOrEmpty(Request.QueryString("CustomerID")) Then
-            Dim customerID = Request.QueryString("CustomerID")
-            Dim editCust = GetCustomerById(customerID)
-            If editCust IsNot Nothing Then
-                FillCustomerData(editCust)
-            Else
-                ltMessage.Text = "<span class='alert alert-warning'>Customer not found.</span>"
-            End If
-        End If
+
 
         'check fist time load   
         If Not IsPostBack Then
             conn = New SqlConnection(strConn)
             LoadDataCustomers()
+
+            If Not String.IsNullOrEmpty(Request.QueryString("CustomerID")) AndAlso btnNew.Enabled Then
+                Dim customerID = Request.QueryString("CustomerID")
+                Dim editCust = GetCustomerById(customerID)
+
+                If editCust IsNot Nothing Then
+                    If txtCustomerID.Text <> editCust.CustomerID.ToString() Then
+                        FillCustomerData(editCust)
+                    End If
+                Else
+                    ltMessage.Text = "<span class='alert alert-warning'>Customer not found.</span>"
+                End If
+            End If
         End If
     End Sub
 
@@ -36,6 +41,30 @@ Public Class CustomerPage
         gvCustomer.DataSource = results
         gvCustomer.DataBind()
     End Sub
+
+    Private Function UpdateCustomer(customer As Customer) As Boolean
+        Using conn As New SqlConnection(strConn)
+            Try
+                Dim strSql = "UPDATE Customer SET Name = @Name, CardID = @CardID, Address = @Address, " &
+                         "PhoneNumber = @PhoneNumber, Email = @Email WHERE CustomerID = @CustomerID"
+                Dim cmd As New SqlCommand(strSql, conn)
+                cmd.Parameters.AddWithValue("@CustomerID", customer.CustomerID)
+                cmd.Parameters.AddWithValue("@Name", customer.Name)
+                cmd.Parameters.AddWithValue("@CardID", customer.CardID)
+                cmd.Parameters.AddWithValue("@Address", customer.Address)
+                cmd.Parameters.AddWithValue("@PhoneNumber", customer.PhoneNumber)
+                cmd.Parameters.AddWithValue("@Email", customer.Email)
+
+                conn.Open()
+                Dim result = cmd.ExecuteNonQuery()
+                Return result > 0
+            Catch sqlEx As SqlException
+                ltMessage.Text = "<span class='alert alert-warning'>Error: " & sqlEx.Message & "</span>"
+            Catch ex As Exception
+                ltMessage.Text = "<span class='alert alert-warning'>Error: " & ex.Message & "</span>"
+            End Try
+        End Using
+    End Function
 
     Private Function InsertCustomer(customer As Customer) As Boolean
         Using conn As New SqlConnection(strConn)
@@ -186,25 +215,49 @@ Public Class CustomerPage
     End Sub
 
     Protected Sub btnSave_Click(sender As Object, e As EventArgs)
-        Try
-            Dim newCustomer As New Customer With {
+        If btnNew.Enabled = False Then
+            Try
+                Dim newCustomer As New Customer With {
            .Name = txtName.Text.Trim(),
            .CardID = txtCardID.Text.Trim(),
            .Address = txtAddress.Text.Trim(),
            .PhoneNumber = txtPhoneNumber.Text.Trim(),
            .Email = txtEmail.Text.Trim()
            }
-            Dim isInserted = InsertCustomer(newCustomer)
-            If isInserted Then
-                LoadDataCustomers()
-                ClearForm()
-                ltMessage.Text = "<span class='alert alert-success'>Customer added successfully.</span>"
-            Else
-                ltMessage.Text = "<span class='alert alert-warning'>Failed to add customer.</span>"
-            End If
-        Catch ex As Exception
-            ltMessage.Text = "<span class='alert alert-warning'>Error: " & ex.Message & "</span>"
-        End Try
+                Dim isInserted = InsertCustomer(newCustomer)
+                If isInserted Then
+                    LoadDataCustomers()
+                    ClearForm()
+                    ltMessage.Text = "<span class='alert alert-success'>Customer added successfully.</span>"
+                Else
+                    ltMessage.Text = "<span class='alert alert-warning'>Failed to add customer.</span>"
+                End If
+            Catch ex As Exception
+                ltMessage.Text = "<span class='alert alert-warning'>Error: " & ex.Message & "</span>"
+            End Try
+        Else
+            Try
+                Dim upCustomer As New Customer With {
+                    .CustomerID = Convert.ToInt32(txtCustomerID.Text.Trim()),
+                    .Name = txtName.Text.Trim(),
+                    .CardID = txtCardID.Text.Trim(),
+                    .Address = txtAddress.Text.Trim(),
+                    .PhoneNumber = txtPhoneNumber.Text.Trim(),
+                    .Email = txtEmail.Text.Trim()
+                    }
+                Dim isUpdated = UpdateCustomer(upCustomer)
+                If isUpdated Then
+                    LoadDataCustomers()
+                    ltMessage.Text = "<span class='alert alert-success'>Customer updated successfully.</span>"
+                Else
+                    ltMessage.Text = "<span class='alert alert-warning'>Failed to update customer.</span>"
+                End If
+            Catch ex As Exception
+                ltMessage.Text = "<span class='alert alert-warning'>Error: " & ex.Message & "</span>"
+            End Try
+        End If
+
+
     End Sub
 
     Protected Sub btnNew_Click(sender As Object, e As EventArgs)
