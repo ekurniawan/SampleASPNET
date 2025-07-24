@@ -16,11 +16,43 @@ Public Class CustomerPage
 
             conn = New SqlConnection(strConn)
 
-            Dim results = GetDataCustomers()
-            gvCustomer.DataSource = results
-            gvCustomer.DataBind()
+            LoadDataCustomers()
         End If
     End Sub
+
+#Region "CRUD Customers"
+
+    Private Sub LoadDataCustomers()
+        Dim results = GetDataCustomers()
+        gvCustomer.DataSource = results
+        gvCustomer.DataBind()
+    End Sub
+
+    Private Function InsertCustomer(customer As Customer) As Boolean
+        Using conn As New SqlConnection(strConn)
+            Dim strSql = "insert into Customer (Name, CardID, Address, PhoneNumber, Email) " &
+                         "values (@Name, @CardID, @Address, @PhoneNumber, @Email)"
+            Dim cmd As New SqlCommand(strSql, conn)
+
+            cmd.Parameters.AddWithValue("@Name", customer.Name)
+            cmd.Parameters.AddWithValue("@CardID", customer.CardID)
+            cmd.Parameters.AddWithValue("@Address", customer.Address)
+            cmd.Parameters.AddWithValue("@PhoneNumber", customer.PhoneNumber)
+            cmd.Parameters.AddWithValue("@Email", customer.Email)
+            Try
+                conn.Open()
+                Dim result = cmd.ExecuteNonQuery()
+                Return result > 0
+            Catch sqlEx As SqlException
+                ltMessage.Text = "<span class='alert alert-warning'>Error: " & sqlEx.Message & "</span>"
+            Catch ex As Exception
+                ltMessage.Text = "<span class='alert alert-warning'>Error: " & ex.Message & "</span>"
+            Finally
+                cmd.Dispose()
+                conn.Close()
+            End Try
+        End Using
+    End Function
 
     Private Function GetDataCustomers() As List(Of Customer)
         Dim customers As New List(Of Customer)
@@ -92,6 +124,10 @@ Public Class CustomerPage
         End Try
     End Function
 
+#End Region
+
+
+
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs)
         Dim results = GetCustomerByName(txtSearch.Text.Trim())
         If results.Count > 0 Then
@@ -100,5 +136,26 @@ Public Class CustomerPage
         Else
             ltMessage.Text = "<span class='alert alert-warning'>No customers found.</span>"
         End If
+    End Sub
+
+    Protected Sub btnSave_Click(sender As Object, e As EventArgs)
+        Try
+            Dim newCustomer As New Customer With {
+           .Name = txtName.Text.Trim(),
+           .CardID = txtCardID.Text.Trim(),
+           .Address = txtAddress.Text.Trim(),
+           .PhoneNumber = txtPhoneNumber.Text.Trim(),
+           .Email = txtEmail.Text.Trim()
+           }
+            Dim isInserted = InsertCustomer(newCustomer)
+            If isInserted Then
+                LoadDataCustomers()
+                ltMessage.Text = "<span class='alert alert-success'>Customer added successfully.</span>"
+            Else
+                ltMessage.Text = "<span class='alert alert-warning'>Failed to add customer.</span>"
+            End If
+        Catch ex As Exception
+            ltMessage.Text = "<span class='alert alert-warning'>Error: " & ex.Message & "</span>"
+        End Try
     End Sub
 End Class
