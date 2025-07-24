@@ -11,9 +11,6 @@ Public Class CustomerPage
 
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        'if query string not empty
-
-
         'check fist time load   
         If Not IsPostBack Then
             conn = New SqlConnection(strConn)
