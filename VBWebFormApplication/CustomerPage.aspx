@@ -8,7 +8,7 @@
         <div class="col-md-4">
             <div class="mb-3 mt-3">
                 <label for="CustomerID" class="form-label">Customer ID :</label>
-                <asp:TextBox ID="txtCustomerID" runat="server" CssClass="form-control" />
+                <asp:TextBox ID="txtCustomerID" ReadOnly="true" runat="server" CssClass="form-control" />
             </div>
             <div class="mb-3 mt-3">
                 <label for="Name" class="form-label">Name :</label>

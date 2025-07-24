@@ -42,6 +42,23 @@ Public Class CustomerPage
         gvCustomer.DataBind()
     End Sub
 
+    Private Function DeleteCustomer(customerId As Integer) As Boolean
+        Using conn As New SqlConnection(strConn)
+            Try
+                Dim strSql = "DELETE FROM Customer WHERE CustomerID = @CustomerID"
+                Dim cmd As New SqlCommand(strSql, conn)
+                cmd.Parameters.AddWithValue("@CustomerID", customerId)
+                conn.Open()
+                Dim result = cmd.ExecuteNonQuery()
+                Return result > 0
+            Catch sqlEx As SqlException
+                ltMessage.Text = "<span class='alert alert-warning'>Error: " & sqlEx.Message & "</span>"
+            Catch ex As Exception
+                ltMessage.Text = "<span class='alert alert-warning'>Error: " & ex.Message & "</span>"
+            End Try
+        End Using
+    End Function
+
     Private Function UpdateCustomer(customer As Customer) As Boolean
         Using conn As New SqlConnection(strConn)
             Try
