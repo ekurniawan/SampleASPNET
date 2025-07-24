@@ -4,11 +4,12 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Customer</h2>
-            <asp:Literal ID="ltMessage" runat="server" />
+            <br />
+            <asp:Literal ID="ltMessage" ViewStateMode="Disabled" runat="server" />
+            <br />
             <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" />
-            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="btnSearch_Click" /><br />
+            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary btn-sm" OnClick="btnSearch_Click" />
             <br />    
-            <asp:Button ID="btnCustomer" Text="Get Data Customer" runat="server" CssClass="btn btn-primary" /><br />
             <asp:GridView ID="gvCustomer" AutoGenerateColumns="false" runat="server" 
                 CssClass="table table-striped">
                 <Columns>

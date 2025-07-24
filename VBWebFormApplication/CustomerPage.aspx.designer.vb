@@ -41,15 +41,6 @@ Partial Public Class CustomerPage
     Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''btnCustomer control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnCustomer As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
     '''gvCustomer control.
     '''</summary>
     '''<remarks>

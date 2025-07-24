@@ -11,7 +11,6 @@ Public Class CustomerPage
 
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
         'check fist time load   
         If Not IsPostBack Then
 
@@ -49,19 +48,20 @@ Public Class CustomerPage
     Private Function GetCustomerByName(name As String) As List(Of Customer)
         Dim customers As New List(Of Customer)
         Using conn As New SqlConnection(strConn)
-            Dim cmd As New SqlCommand("SELECT * FROM Customer WHERE Name LIKE @Name ORDER BY Name ASC", conn)
+            Dim cmd As New SqlCommand("GetCustomersByName", conn)
+            cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@Name", "%" & name & "%")
             conn.Open()
             Dim reader As SqlDataReader = cmd.ExecuteReader()
             While reader.Read()
-                Dim customer As New Customer With {
-                    .CustomerID = Convert.ToInt32(reader("CustomerID")),
-                    .Name = reader("Name").ToString(),
-                    .CardID = reader("CardID").ToString(),
-                    .Address = reader("Address").ToString(),
-                    .PhoneNumber = reader("PhoneNumber").ToString(),
-                    .Email = reader("Email").ToString()
-                }
+                Dim customer As New Customer
+                customer.CustomerID = Convert.ToInt32(reader("CustomerID"))
+                customer.Name = reader("Name").ToString()
+                customer.CardID = reader("CardID").ToString()
+                customer.Address = reader("Address").ToString()
+                customer.PhoneNumber = reader("PhoneNumber").ToString()
+                customer.Email = reader("Email").ToString()
+
                 customers.Add(customer)
             End While
 
