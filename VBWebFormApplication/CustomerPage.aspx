@@ -32,7 +32,7 @@
             </div>
             <asp:Button ID="btnNew" runat="server" Text="New" CssClass="btn btn-primary btn-sm" OnClick="btnNew_Click" />
             <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn btn-warning btn-sm" OnClick="btnSave_Click" />
-            <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="btn btn-danger btn-sm" />
+            <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="btn btn-danger btn-sm" OnClick="btnDelete_Click" />
             <br />
 
         </div>

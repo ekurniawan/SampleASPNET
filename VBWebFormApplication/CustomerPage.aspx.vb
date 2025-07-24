@@ -266,6 +266,7 @@ Public Class CustomerPage
                 If isUpdated Then
                     LoadDataCustomers()
                     ltMessage.Text = "<span class='alert alert-success'>Customer updated successfully.</span>"
+                    'Response.Redirect("CustomerPage.aspx")
                 Else
                     ltMessage.Text = "<span class='alert alert-warning'>Failed to update customer.</span>"
                 End If
@@ -281,5 +282,21 @@ Public Class CustomerPage
         btnNew.Enabled = False
         ClearForm()
         txtName.Focus()
+        'Response.Redirect("CustomerPage.aspx?")
+    End Sub
+
+    Protected Sub btnDelete_Click(sender As Object, e As EventArgs)
+        Try
+            Dim result = DeleteCustomer(Convert.ToInt32(txtCustomerID.Text.Trim()))
+            If result Then
+                LoadDataCustomers()
+                ClearForm()
+                ltMessage.Text = "<span class='alert alert-success'>Customer deleted successfully.</span>"
+            Else
+                ltMessage.Text = "<span class='alert alert-warning'>Failed to delete customer.</span>"
+            End If
+        Catch ex As Exception
+            ltMessage.Text = "<span class='alert alert-warning'>Error: " & ex.Message & "</span>"
+        End Try
     End Sub
 End Class
