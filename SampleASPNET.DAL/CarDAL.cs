@@ -31,13 +31,39 @@ namespace SampleASPNET.DAL
             }
             catch (SqlException sqlEx)
             {
-                throw new ArgumentException(sqlEx.Message);
+                throw new ArgumentException($"{sqlEx.Number} - {sqlEx.Message}");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while adding the car.", ex);
             }
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Helpers.GetConnectionString()))
+                {
+                    string strSql = @"DELETE FROM Car WHERE CarID = @CarID";
+                    SqlCommand cmd = new SqlCommand(strSql, conn);
+                    cmd.Parameters.AddWithValue("@CarID", id);
+                    conn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 0)
+                    {
+                        throw new ArgumentException("No car found with the specified ID.");
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ArgumentException($"{sqlEx.Number} - {sqlEx.Message}");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public IEnumerable<Car> GetAll()
@@ -112,7 +138,41 @@ namespace SampleASPNET.DAL
 
         public Car Update(Car entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Helpers.GetConnectionString()))
+                {
+                    string strSql = @"UPDATE Car 
+                                  SET Model = @Model, Type = @Type, BasePrice = @BasePrice, 
+                                      Color = @Color, Stock = @Stock 
+                                  WHERE CarID = @CarID";
+                    SqlCommand cmd = new SqlCommand(strSql, conn);
+                    cmd.Parameters.AddWithValue("@CarID", entity.CarID);
+                    cmd.Parameters.AddWithValue("@Model", entity.Model);
+                    cmd.Parameters.AddWithValue("@Type", entity.Type);
+                    cmd.Parameters.AddWithValue("@BasePrice", entity.BasePrice);
+                    cmd.Parameters.AddWithValue("@Color", entity.Color);
+                    cmd.Parameters.AddWithValue("@Stock", entity.Stock);
+                    conn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        return entity; // Return the updated entity
+                    }
+                    else
+                    {
+                        return null; // or throw an exception if preferred
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ArgumentException($"{sqlEx.Number} - {sqlEx.Message}");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
