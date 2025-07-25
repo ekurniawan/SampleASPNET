@@ -1,7 +1,7 @@
-﻿using SampleASPNET.BO;
+﻿using Microsoft.Data.SqlClient;
+using SampleASPNET.BO;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Text;
 
 namespace SampleASPNET.DAL
