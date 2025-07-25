@@ -15,9 +15,33 @@ namespace SampleASPNET.BLL
             carDAL = new CarDAL();
         }
 
-        public void AddCar(CarDTO car)
+        public CarDTO AddCar(CarAddDTO newCar)
         {
-            throw new NotImplementedException();
+            if (newCar == null)
+            {
+                throw new ArgumentNullException(nameof(newCar), "New car cannot be null");
+            }
+            var car = new Car
+            {
+                Model = newCar.Model,
+                Type = newCar.Type,
+                BasePrice = newCar.BasePrice,
+                Color = newCar.Color,
+                Stock = newCar.Stock
+            };
+            var addedCar = carDAL.Add(car);
+
+            var results = new CarDTO
+            {
+                CarID = addedCar.CarID,
+                Model = addedCar.Model,
+                Type = addedCar.Type,
+                BasePrice = addedCar.BasePrice,
+                Color = addedCar.Color,
+                Stock = addedCar.Stock
+            };
+
+            return results;
         }
 
         public void DeleteCar(int carID)
@@ -46,10 +70,24 @@ namespace SampleASPNET.BLL
 
         public CarDTO GetCarByID(int carID)
         {
-            throw new NotImplementedException();
+            var car = carDAL.GetById(carID);
+            if (car == null)
+            {
+                return null;
+            }
+
+            return new CarDTO
+            {
+                CarID = car.CarID,
+                Model = car.Model,
+                Type = car.Type,
+                BasePrice = car.BasePrice,
+                Color = car.Color,
+                Stock = car.Stock
+            };
         }
 
-        public void UpdateCar(CarDTO car)
+        public CarDTO UpdateCar(CarUpdateDTO updateCar)
         {
             throw new NotImplementedException();
         }

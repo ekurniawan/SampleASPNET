@@ -1,5 +1,5 @@
-﻿Imports System.Data.SqlClient
-Imports System.Web.Configuration
+﻿Imports System.Web.Configuration
+Imports Microsoft.Data.SqlClient
 
 Public Class CustomerPage
     Inherits System.Web.UI.Page

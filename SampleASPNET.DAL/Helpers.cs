@@ -12,5 +12,10 @@ namespace SampleASPNET.DAL
             return ConfigurationManager.ConnectionStrings["AutomotiveDBConnectionString"].ConnectionString;
         }
 
+        //public static string GetConnectionString()
+        //{
+        //    return @"Data Source=.\;Initial Catalog=AutomotiveDB3;Integrated Security=True;TrustServerCertificate=True";
+        //}
+
     }
 }
